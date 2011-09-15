@@ -1,4 +1,4 @@
-###Create web applications easily with the Hello-PHP framework
+###Create web applications easily with the Hello PHP framework
 
 # FEATURES
  - MVC architecture
@@ -18,7 +18,4 @@ Just create some models, controllers and views then edit the layout and you're (
 ## Authors
 
 Millagou Benjamin
-
-
-.
 
