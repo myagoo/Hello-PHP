@@ -1,8 +1,10 @@
 <?php
-define('WEBROOT',str_replace('autocomplete.php','',$_SERVER['SCRIPT_NAME']));
-define('ROOT',str_replace('autocomplete.php','',$_SERVER['SCRIPT_FILENAME']));
-require_once(ROOT.'database.php');
-require_once(ROOT.'util.php');
+define('DS', DIRECTORY_SEPARATOR);
+define('WEBROOT', dirname(__FILE__));
+define('ROOT', dirname(WEBROOT));
+define('CORE',ROOT.DS.'core');
+define('BASE_URL',dirname(dirname($_SERVER['SCRIPT_NAME'])));
+require_once(CORE.DS.'includes.php');
 $query='SELECT title FROM posts WHERE title LIKE "%'.htmlspecialchars($_GET["term"],ENT_QUOTES,'UTF-8').'%"';
 $results=mysql_query($query);
 $i=0;
@@ -12,3 +14,4 @@ while($row = mysql_fetch_assoc($results)){
 }
 echo json_encode($datas);
 ?>
+

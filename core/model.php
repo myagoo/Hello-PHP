@@ -139,7 +139,7 @@ class model{
 	}
 
 	static function load($name){
-		require_once(ROOT.'models/'.$name.'.model.php');
+		require_once(ROOT.DS.'models'.DS.$name.'.model.php');
 		return new $name();
 	}
 }

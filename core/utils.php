@@ -7,3 +7,4 @@ function toUtfHtml($string,$reverse=false){
 	}
 }
 ?>
+
