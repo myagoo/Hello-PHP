@@ -1,6 +1,7 @@
+<?php print_r($categories); ?>
 <form method="POST" class="form-stacked">
 	<fieldset>
-		<legend>Edit</legend>
+		<legend>Edit this post</legend>
 		<input type="hidden" name="post[id]" value="<?php echo empty($post['id']) ? '' : $post['id']; ?>">
 		<div class="clearfix">
 			<label></label>

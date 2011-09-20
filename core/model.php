@@ -1,9 +1,15 @@
 <?php
 class model{
+	public $db = 'default';
 	public $table;
 	public $key;
 	public $id;
+	static $connections = array();
 
+	/**
+	*
+	*
+	**/
 	public function __construct(){
 		$query = 'DESCRIBE '.$this->table;
 		$results = mysql_query($query) or die(mysql_error());
@@ -12,7 +18,7 @@ class model{
 			unset($row['Field']);
 			$this->fields[$fieldName] = $row;
 		}
-
+		debug($this->fields);
 	}
 
 	public function read($fields=null){
@@ -27,13 +33,13 @@ class model{
 		}
 	}
 
-	public function save($data){
+	public function save($data,$html=false){
 		//Si l'id est rempli, il s'agit d'un UPDATE
 		if(!empty($data[$this->key])){
 			$query='UPDATE '.$this->table.' SET ';
 			foreach($data as $key=>$value){
 				if($key != $this->key){
-					$query.= $key.' = "'.htmlspecialchars($value,ENT_QUOTES,'UTF-8').'", ';
+					$query.= $key.' = "'.mysql_real_escape_string($value).'", ';
 				}
 			}
 			$query=substr($query,0,-2);
@@ -54,7 +60,7 @@ class model{
 			}
 			$query.= ') VALUE (';
 			foreach($data as $value){
-				$query.= '"'.htmlspecialchars($value,ENT_QUOTES,'UTF-8').'", ';
+				$query.= '"'.mysql_real_escape_string($value).'", ';
 			}
 			$query=substr($query,0,-2);
 			if($this->fields['created']){

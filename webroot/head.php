@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="<?php echo BASE_URL.DS; ?>scripts/modernizr.js"></script>
 		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css">
 		<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/flick/jquery-ui.css" rel="Stylesheet"/>
-		<title>Myagoo</title>
+		<title><?php echo isset($title_for_layout) ? $title_for_layout : "Myagoo" ?></title>
 	</head>
 	<body>
 		<script type="text/javascript">

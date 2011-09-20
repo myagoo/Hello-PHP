@@ -3,11 +3,9 @@ class controller{
 
 	private $vars;	//Variables à faire passer à la vue
 	public $layout = 'default';
-	public $request;	//Instance de request permettant d'obtenir le controller, l'action et les paramètres de l'url
 	private $rendered = false;
 
-	public function __construct($request){
-		$this->request = $request;
+	public function __construct(){
 		$this->vars = array();
 		if(!empty($this->models)){
 			foreach($this->models as $model){
@@ -23,7 +21,7 @@ class controller{
 		if(strpos($view, '/') === 0){
 			$view = ROOT.DS.'views'.$view.'.view.php';
 		}else{
-			$view = ROOT.DS.'views'.DS.$this->request->controller.DS.$view.'.view.php';
+			$view = ROOT.DS.'views'.DS.get_class($this).DS.$view.'.view.php';
 		}
 		extract($this->vars);
 		ob_start();
@@ -47,7 +45,9 @@ class controller{
 
 	function loadModel($name){
 		require_once(ROOT.DS.'models'.DS.$name.'.model.php');
-		$this->$name = new $name();
+		if (!isset($this->$name)){
+			$this->$name = new $name();
+		}
 	}
 }
 ?>

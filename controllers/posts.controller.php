@@ -3,9 +3,9 @@ class posts extends Controller{
 
 	public $models;
 
-	public function __construct($request){
+	public function __construct(){
 		$this->models = array('post', 'category');
-		parent::__construct($request);
+		parent::__construct();
 	}
 
 	//Liste les 5 derniers articles
@@ -45,14 +45,12 @@ class posts extends Controller{
 				'conditions' => 'posts.id = '.$id
 			));
 			$data['post'] = $data['post'][0];
-			$this->set($data);
-			$this->render('edit');
 		}else{
 			$data['post']['title']='';
 			$data['post']['body']='';
-			$this->set($data);
-			$this->render('edit');
 		}
+		$this->set($data);
+		$this->render('edit');
 	}
 }
 ?>

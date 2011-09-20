@@ -30,7 +30,7 @@ class dispatcher{
 		$file = ROOT.DS.'controllers'.DS.$name.'.controller.php';
 		if(file_exists($file)){
 			require_once($file);
-			return new $name($this->request);
+			return new $name(/*$this->request*/);
 		}else{
 			return false;
 		}
