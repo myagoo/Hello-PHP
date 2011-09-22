@@ -4,7 +4,6 @@ class model{
 	public $table;
 	public $key;
 	public $id;
-	static $connections = array();
 
 	/**
 	*
@@ -18,7 +17,6 @@ class model{
 			unset($row['Field']);
 			$this->fields[$fieldName] = $row;
 		}
-		debug($this->fields);
 	}
 
 	public function read($fields=null){
@@ -76,7 +74,8 @@ class model{
 		}
 		return $this->id;
 	}
-	//Ancienne version
+
+
 	public function find($options=array()){
 		$conditions = '1=1';
 		$fields = '*';
@@ -147,6 +146,10 @@ class model{
 	static function load($name){
 		require_once(ROOT.DS.'models'.DS.$name.'.model.php');
 		return new $name();
+	}
+
+	private function prefix(){
+
 	}
 }
 ?>

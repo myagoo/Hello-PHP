@@ -1,4 +1,3 @@
-<?php print_r($categories); ?>
 <form method="POST" class="form-stacked">
 	<fieldset>
 		<legend>Edit this post</legend>
@@ -18,7 +17,7 @@
 		<div class="clearfix">
 			<label>Body</label>
 			<div class="input">
-				<textarea name="post[body]" placeholder="Corps de l'article"><?php echo $post['body']; ?></textarea>
+				<textarea name="post[body]" placeholder="Corps de l'article" class="markItUp"><?php echo $post['body']; ?></textarea>
 			</div>
 		</div>
 		<div class="clearfix">

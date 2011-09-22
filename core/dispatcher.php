@@ -22,7 +22,6 @@ class dispatcher{
 		$controller = new Controller($this->request);
 		$controller->set('flash', $flash);
 		$controller->render(DS.'errors'.DS.'404');
-		die();
 	}
 
 	private function loadController(){

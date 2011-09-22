@@ -1,9 +1,9 @@
 <?php
 class controller{
 
-	private $vars;	//Variables à faire passer à la vue
+	private $vars; //Variables à faire passer à la vue
+	private $rendered = false; //Permet de savoir si la vue a déjà été rendu
 	public $layout = 'default';
-	private $rendered = false;
 
 	public function __construct(){
 		$this->vars = array();
