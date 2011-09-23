@@ -4,22 +4,23 @@
 		<meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL.DS; ?>scripts/modernizr.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL.DS; ?>scripts/markitup/jquery.markitup.js"></script>
-		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL.DS; ?>scripts/markitup/skins/simple/style.css"/>
-		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL.DS; ?>scripts/markitup/sets/default/style.css"/>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>/scripts/modernizr.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>/scripts/markitup/jquery.markitup.js"></script>
+		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/scripts/markitup/skins/simple/style.css"/>
+		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/scripts/markitup/sets/default/style.css"/>
 		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css"/>
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/styles/style.css"/>
 		<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/flick/jquery-ui.css" rel="Stylesheet"/>
-		<title><?php echo isset($title_for_layout) ? $title_for_layout : "Myagoo" ?></title>
+		<title><?php echo isset($title_for_layout) ? $title_for_layout : "Blog title" ?></title>
 	</head>
 	<body>
-		<script type="text/javascript" src="<?php echo BASE_URL.DS; ?>scripts/markitup/sets/default/set.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>/scripts/markitup/sets/default/set.js"></script>
 		<script type="text/javascript">
 			$(function(){
 
 				$(".markItUp").markItUp(mySettings);
 				$("#search").autocomplete({
-					source: '<?php echo BASE_URL.DS; ?>autocomplete.php'
+					source: '<?php echo BASE_URL; ?>/autocomplete.php'
 				});
 				//Placeholders Fix
 				if(!Modernizr.input.placeholder){

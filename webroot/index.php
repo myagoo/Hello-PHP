@@ -6,9 +6,9 @@ define('DS', DIRECTORY_SEPARATOR);
 define('WEBROOT', dirname(__FILE__));
 define('ROOT', dirname(WEBROOT));
 define('CORE',ROOT.DS.'core');
-define('BASE_URL','http://'.$_SERVER['HTTP_HOST'].str_replace(DS.'webroot'.DS.'index.php','',$_SERVER['SCRIPT_NAME']));
+define('BASE_URL','http://'.$_SERVER['HTTP_HOST'].str_replace('/webroot/index.php','',$_SERVER['SCRIPT_NAME']));
 require_once(CORE.DS.'includes.php');
-
+debug($_SERVER);
 $dispatcher = new dispatcher();
 
 if(config::$debug > 0){

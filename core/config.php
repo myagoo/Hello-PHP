@@ -10,9 +10,9 @@ class config{
 	static $databases = array(
 		'default' => array(
 			'host' => 'localhost',
-			'database' => 'myagoo',
+			'database' => 'hellophp',
 			'user' => 'root',
-			'password' => 'bjmbossk8'
+			'password' => ''
 		)
 	);
 
