@@ -1,4 +1,5 @@
 <?php require(WEBROOT.DS.'head.php'); ?>
+<?php echo $this->session->flash(); ?>
 <div class="row">
 	<div class="span12 columns">
 		<?php echo $content_for_layout; ?>

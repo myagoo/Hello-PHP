@@ -3,13 +3,21 @@ define('DS', DIRECTORY_SEPARATOR);
 define('WEBROOT', dirname(__FILE__));
 define('ROOT', dirname(WEBROOT));
 define('CORE',ROOT.DS.'core');
-define('BASE_URL',dirname(dirname($_SERVER['SCRIPT_NAME'])));
+define('BASE_URL','http://'.$_SERVER['HTTP_HOST'].str_replace('/webroot/index.php','',$_SERVER['SCRIPT_NAME']));
 require_once(CORE.DS.'includes.php');
-$query='SELECT title FROM posts WHERE title LIKE "%'.htmlspecialchars($_GET["term"],ENT_QUOTES,'UTF-8').'%"';
+
+//Initialisation d'une connexion à MySQL
+model::connect();
+
+
+header('Content-type: text/html; charset=UTF-8');
+
+$query='SELECT title FROM posts WHERE title LIKE "%'.mysql_real_escape_string($_GET["term"]).'%"';
 $results=mysql_query($query);
 $i=0;
+$datas = array();
 while($row = mysql_fetch_assoc($results)){
-	$datas[$i]=toUtfHtml($row["title"],true);
+	$datas[$i]=$row["title"];
 	$i++;
 }
 echo json_encode($datas);

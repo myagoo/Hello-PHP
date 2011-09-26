@@ -1,16 +1,15 @@
 <?php
 class posts extends Controller{
 
-	public $models;
+	public $models = array('post', 'category');
+	public $helpers = array('session');
 
 	public function __construct(){
-		$this->models = array('post', 'category');
 		parent::__construct();
 	}
 
 	//Liste les 5 derniers articles
 	public function index(){
-
 		if($data['posts'] = $this->post->getLast()){
 			$this->set($data);
 			$this->render('index');
@@ -32,12 +31,14 @@ class posts extends Controller{
 	//Supprime un article
 	public function delete($id){
 		$this->post->delete($id);
+		$this->session->setFlash('L\'article a bien été suprimmé');
 		$this->index();
 	}
 
-	public function edit($id=null){
+	public function edit($id = null){
 		if(isset($_POST['post'])){
 			$id = $this->post->save($_POST['post']);
+			$this->session->setFlash('Votre article a bien été enregistré sous l\'id '.$id);
 		}
 		$data['categories'] = $this->category->find();
 		if(!empty($id)){

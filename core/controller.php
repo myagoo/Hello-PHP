@@ -5,12 +5,13 @@ class controller{
 	private $rendered = false; //Permet de savoir si la vue a déjà été rendu
 	public $layout = 'default';
 
-	public function __construct(){
+	protected function __construct(){
 		$this->vars = array();
 		if(!empty($this->models)){
-			foreach($this->models as $model){
-				$this->loadModel($model);
-			}
+			$this->loadModel($this->models);
+		}
+		if(!empty($this->helpers)){
+			$this->loadHelper($this->helpers);
 		}
 	}
 
@@ -35,7 +36,7 @@ class controller{
 		$this->rendered = true;
 	}
 
-	function set($key, $value = null){
+	protected function set($key, $value = null){
 		if(is_array($key)){
 			$this->vars = array_merge($this->vars, $key);
 		}else{
@@ -43,10 +44,52 @@ class controller{
 		}
 	}
 
-	function loadModel($name){
-		require_once(ROOT.DS.'models'.DS.$name.'.model.php');
-		if (!isset($this->$name)){
-			$this->$name = new $name();
+	/**
+	* Permet de charger un controller dans une vue
+	**/
+	public function request($controller, $action){
+		if(file_exists(ROOT.DS.'controllers'.DS.$controller.'.controller.php')){
+			require_once(ROOT.DS.'controllers'.DS.$controller.'.controller.php');
+			if(method_exists($controller, $action)){
+				$controller = new $controller();
+				return $controller->$action;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	protected function loadModel($model){
+		if(is_array($model)){
+			foreach($model as $m){
+				require_once(ROOT.DS.'models'.DS.$m.'.model.php');
+				if (!isset($this->$m)){
+					$this->$m = new $m();
+				}
+			}
+		} else {
+			require_once(ROOT.DS.'models'.DS.$model.'.model.php');
+			if (!isset($this->$model)){
+				$this->$model = new $model();
+			}
+		}
+	}
+
+	protected function loadHelper($helper){
+		if(is_array($helper)){
+			foreach($helper as $h){
+				require_once(ROOT.DS.'helpers'.DS.$h.'.helper.php');
+				if (!isset($this->$h)){
+					$this->$h = new $h();
+				}
+			}
+		} else {
+			require_once(ROOT.DS.'models'.DS.$helper.'.model.php');
+			if (!isset($this->$helper)){
+				$this->$helper = new $helper();
+			}
 		}
 	}
 }

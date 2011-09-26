@@ -1,24 +1,28 @@
 <?php
 class model{
-	public $db = 'default';
-	public $table;
-	public $key;
-	public $id;
+	static $db = 'default'; //Serveur MySQL sur lequel se connecter
+	public $table; //Table correspondant au modèle
+	public $key = 'id'; //Nom de la clé primaire
+	public $id; //Variable utilisée
 
 	/**
 	*
 	*
 	**/
 	public function __construct(){
+		$this->connect(); // Connection à la base de données
 		$query = 'DESCRIBE '.$this->table;
 		$results = mysql_query($query) or die(mysql_error());
 		while($row = mysql_fetch_assoc($results)){
 			$fieldName = $row['Field'];
 			unset($row['Field']);
-			$this->fields[$fieldName] = $row;
+			$this->fields[$fieldName] = $row; //Récupération des infos des champs de la table dans $this->fields
 		}
 	}
 
+	/**
+	* Permet une lecture rapide d'un modèle grace à son identifiant
+	**/
 	public function read($fields=null){
 		if(empty($fields)){
 			$fields='*';
@@ -76,7 +80,7 @@ class model{
 	}
 
 
-	public function find($options=array()){
+	public function find($options = array()){
 		$conditions = '1=1';
 		$fields = '*';
 		if(!empty($this->fields)){
@@ -148,8 +152,21 @@ class model{
 		return new $name();
 	}
 
-	private function prefix(){
-
+	static function connect(){
+		if(isset($this)){
+			$db_data = config::$databases[$this->$db];
+		} else {
+			$db_data = config::$databases[self::$db];
+		}
+		$db_data = config::$databases[self::$db];
+		if($connection=mysql_connect($db_data['host'],$db_data['user'],$db_data['password'])){
+			if(!mysql_select_db($db_data['database'],$connection)){
+				echo "Erreur dans la sélection de la base de données";
+			}
+		}
+		else{
+			echo "Impossible de se connecter à MySQL.";
+		}
 	}
 }
 ?>

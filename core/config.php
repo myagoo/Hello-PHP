@@ -2,7 +2,6 @@
 
 class config{
 
-
 	//Niveau de déboguage (0 = Prod, >1 = Dev)
 	static $debug = 1;
 

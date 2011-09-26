@@ -40,27 +40,27 @@
 				}
 			});
 		</script>
-		<div class="container">
-			<div class="topbar">
-				<div class="fill">
-					<div class="container">
-						<h3><a href="<?php echo BASE_URL; ?>">Blog title</a></h3>
-						<ul>
-							<li><a href="#">Nav...</a></li>
-							<li><a href="#">Nav...</a></li>
-							<li><a href="#">And nav...</a></li>
-						</ul>
-						<form>
-							<input type="text" id="search" placeholder="Search">
-						</form>
-						<ul class="nav secondary-nav">
-							<li><a href="#">Login</a></li>
-							<li><a href="#">Sign up</a></li>
-						</ul>
-					</div>
+		<div class="topbar" style="position:static;">
+			<div class="fill">
+				<div class="container">
+					<h3><a href="<?php echo BASE_URL; ?>">Blog title</a></h3>
+					<ul>
+						<li><a href="#">Nav...</a></li>
+						<li><a href="#">Nav...</a></li>
+						<li><a href="#">And nav...</a></li>
+					</ul>
+					<form>
+						<input type="text" id="search" placeholder="Search">
+					</form>
+					<ul class="nav secondary-nav">
+						<li><a href="#">Login</a></li>
+						<li><a href="#">Sign up</a></li>
+					</ul>
 				</div>
 			</div>
-			<div class="hero-unit">
+		</div>
+		<div class="container">
+			<div class="hero-unit" style="margin-top:20px;">
 				<h1>Hello</h1>
 				<p>This is a demonstration of the Hello PHP framework</p>
 				<p><a href="#" class="btn primary large">More</a></p>

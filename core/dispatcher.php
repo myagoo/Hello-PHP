@@ -8,11 +8,12 @@ class dispatcher{
 		$this->request = new request();
 		router::parse($this->request);
 		if($controller = $this->loadController()){
-			if(!in_array($this->request->action, get_class_methods($controller))){
+			if(!in_array($this->request->action, array_diff(get_class_methods($controller), get_class_methods(get_parent_class($controller))))){
 				$this->error('Le controller '.$this->request->controller.' n\'a pas de méthode '.$this->request->action);
+			} else {
+				call_user_func_array(array($controller, $this->request->action), $this->request->params);
+				$controller->render($this->request->action);
 			}
-			call_user_func_array(array($controller, $this->request->action), $this->request->params);
-			$controller->render($this->request->action);
 		}else{
 			$this->error('Le controller '.$this->request->controller.' n\'existe pas');
 		}

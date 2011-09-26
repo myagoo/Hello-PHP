@@ -8,11 +8,10 @@ define('ROOT', dirname(WEBROOT));
 define('CORE',ROOT.DS.'core');
 define('BASE_URL','http://'.$_SERVER['HTTP_HOST'].str_replace('/webroot/index.php','',$_SERVER['SCRIPT_NAME']));
 require_once(CORE.DS.'includes.php');
-debug($_SERVER);
 $dispatcher = new dispatcher();
 
 if(config::$debug > 0){
-	echo '<pre>Page generated in '.round((microtime(true) - $start), 5).' seconds.</pre>';
+	echo 'Page generated in '.round((microtime(true) - $start), 5).' seconds.';
 }
 ?>
 
