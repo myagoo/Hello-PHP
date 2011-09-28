@@ -29,9 +29,14 @@ class model{
 		}
 		$query='SELECT '.$fields.' FROM '.$this->table.' WHERE '.$this->key.' = "'.$this->id.'"';
 		$result = mysql_query($query) or die(mysql_error());
-		$data = mysql_fetch_assoc($result);
-		foreach($data as $key=>$value){
-			$this->$key = $value;
+		if(mysql_num_rows($results)){
+			$data = mysql_fetch_assoc($result);
+			foreach($data as $key=>$value){
+				$this->$key = $value;
+			}
+			return true;
+		} else {
+			return false;
 		}
 	}
 

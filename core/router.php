@@ -17,6 +17,14 @@ class router{
 		return true;
 	}
 
+	static function redirect($url = null){
+		if(isset($url)){
+			header('Location: '.$url);
+		} else {
+			die(header('Location: '.BASE_URL));
+		}
+	}
+
 }
 
 ?>

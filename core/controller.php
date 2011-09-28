@@ -5,7 +5,7 @@ class controller{
 	private $rendered = false; //Permet de savoir si la vue a déjà été rendu
 	public $layout = 'default';
 
-	protected function __construct(){
+	public function __construct(){
 		$this->vars = array();
 		if(!empty($this->models)){
 			$this->loadModel($this->models);

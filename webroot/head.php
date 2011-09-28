@@ -53,8 +53,8 @@
 						<input type="text" id="search" placeholder="Search">
 					</form>
 					<ul class="nav secondary-nav">
-						<li><a href="#">Login</a></li>
-						<li><a href="#">Sign up</a></li>
+						<li><a href="<?php echo BASE_URL; ?>/users/login">Login</a></li>
+						<li><a href="<?php echo BASE_URL; ?>/users/signup">Sign up</a></li>
 					</ul>
 				</div>
 			</div>
