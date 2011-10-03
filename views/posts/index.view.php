@@ -1,5 +1,6 @@
 <h1>Posts index</h1>
 <?php foreach($posts as $post){ ?>
-	<h3><a href="<?php echo BASE_URL.DS; ?>posts/view/<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a><small> by <a href="<?php echo BASE_URL.DS.'categories/view/'.$post['user']['id'] ?>"><?php echo $post['user']['username']; ?></a> in the category <a href="<?php echo BASE_URL.DS.'categories/view/'.$post['category']['id'] ?>"><?php echo $post['category']['name']; ?></a></small></h3>
+	<h3><?php echo $this->html->anchor('posts/view/'.$post['id'], $post['title']) ?><br/>
+	<small> par <?php echo $this->html->anchor('users/view/'.$post['user_id'], $post['user']['username']) ?> dans la catégorie <?php echo $this->html->anchor('categories/view/'.$post['category_id'], $post['category']['name']) ?></small></h3>
 <?php } ?>
 

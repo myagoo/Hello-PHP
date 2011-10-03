@@ -5,7 +5,7 @@
  - Shipped with an existing project
 
 # USAGE
-Edit and rename to database.php the core/database.default.php file, create some models, controllers and views then edit the layout and you're (near) done !
+To begin, edit the core/config.php file, then create your models, controllers and views using the examples.
 
 
 ## Roadmap

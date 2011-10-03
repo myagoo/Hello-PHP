@@ -11,7 +11,7 @@ class config{
 			'host' => 'localhost',
 			'database' => 'hellophp',
 			'user' => 'root',
-			'password' => ''
+			'password' => 'bjmbossk8'
 		)
 	);
 

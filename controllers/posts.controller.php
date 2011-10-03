@@ -2,17 +2,12 @@
 class posts extends Controller{
 
 	public $models = array('post', 'category');
-	public $helpers = array('session');
-
-	public function __construct(){
-		parent::__construct();
-	}
+	public $helpers = array('session', 'html');
 
 	//Liste les 5 derniers articles
 	public function index(){
 		if($data['posts'] = $this->post->getLast()){
 			$this->set($data);
-			$this->render('index');
 		}else{
 			$this->render('nothing');
 		}
@@ -24,6 +19,7 @@ class posts extends Controller{
 			'conditions' => 'posts.id = '.$id
 		));
 		$data['post'] = $data['post'][0];
+		$data['post']['created'] = date('d/m/Y', strtotime($data['post']['created']));
 		$this->set($data);
 		$this->render('view');
 	}
@@ -31,14 +27,14 @@ class posts extends Controller{
 	//Supprime un article
 	public function delete($id){
 		$this->post->delete($id);
-		$this->session->setFlash('L\'article a bien été suprimmé');
+		$this->session->flash('L\'article a bien été suprimmé');
 		$this->index();
 	}
 
 	public function edit($id = null){
 		if(isset($_POST['post'])){
 			$id = $this->post->save($_POST['post']);
-			$this->session->setFlash('Votre article a bien été enregistré sous l\'id '.$id);
+			$this->session->flash('Votre article a bien été enregistré');
 		}
 		$data['categories'] = $this->category->find();
 		if(!empty($id)){
@@ -55,4 +51,3 @@ class posts extends Controller{
 	}
 }
 ?>
-

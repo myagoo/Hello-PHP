@@ -16,7 +16,7 @@ class session{
 			));
 		} else {
 			if(isset($_SESSION['flash']['message'])){
-				$html = '<div class="alert-message '.$_SESSION['flash']['type'].'"><a class="close" href="#">×</a><p>'.$_SESSION['flash']['message'].'</p></div>';
+				$html = '<div class="alert-message '.$_SESSION['flash']['type'].' fade in" data-alert="alert"><a class="close" href="#">×</a><p>'.$_SESSION['flash']['message'].'</p></div>';
 				$_SESSION['flash'] = array();
 				return $html;
 			}
@@ -27,21 +27,17 @@ class session{
 		if(!isset($key) && !isset($value)){
 			return $_SESSION;
 		} else {
-			if(!isset($key)){
-				return false;
+			if(isset($value)){
+				$_SESSION[$key] = $value;
+				return true;
 			} else {
-				if(isset($value)){
-					$_SESSION[$key] = $value;
-					return true;
-				} else {
-					return $_SESSION[$key];
-				}
+				return $_SESSION[$key];
 			}
 		}
 	}
 
 	public function isLogged(){
-		return $this->data('user');
+		return isset($_SESSION['user']);
 	}
 
 	public function del($key = null){
@@ -60,4 +56,3 @@ class session{
 }
 
 ?>
-
