@@ -25,7 +25,17 @@
 			<div class="input">
 				<select name="post[category_id]">
 					<?php foreach($categories as $category){ ?>
-						<option value="<?php echo $category['id']; ?>" <?php echo $category['id'] == $post['category_id'] ? 'selected' : '' ?>><?php echo $category['name']; ?></option>
+						<option value="<?php echo $category['id']; ?>" <?php echo $category['id'] == $post['category_id'] ? 'selected' : '' ?>><?php echo $category[$this->category->displayField]; ?></option>
+					<?php } ?>
+				</select>
+			</div>
+		</div>
+		<div class="clearfix">
+			<label>User</label>
+			<div class="input">
+				<select name="post[user_id]">
+					<?php foreach($users as $user){ ?>
+						<option value="<?php echo $user['id']; ?>" <?php echo $user['id'] == $post['user_id'] ? 'selected' : '' ?>><?php echo $user[$this->user->displayField]; ?></option>
 					<?php } ?>
 				</select>
 			</div>
@@ -34,6 +44,5 @@
 			<input type="submit" value="Save" name="submited" class="btn primary">
 			<button class="btn" type="reset">Cancel</button>
 		</div>
-	<fieldset>
+	</fieldset>
 </form>
-

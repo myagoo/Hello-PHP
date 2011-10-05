@@ -44,9 +44,9 @@ class twitter extends model {
 		curl_setopt($this->twitter, CURLOPT_URL, $url);
 		curl_setopt($this->twitter, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($this->twitter, CURLOPT_TIMEOUT_MS, 1500);
-		$tweets = json_decode(curl_exec($this->twitter));
+		$data = json_decode(curl_exec($this->twitter));
 		curl_close($this->twitter);
-		return objectToArray($tweets);
+		return objectToArray($data);
 	}
 
 	public function delete($id=null) {

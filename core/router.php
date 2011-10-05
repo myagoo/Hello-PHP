@@ -19,7 +19,7 @@ class router{
 
 	static function redirect($url = null){
 		if(isset($url)){
-			header('Location: '.$url);
+			die(header('Location: '.$url));
 		} else {
 			die(header('Location: '.BASE_URL));
 		}
