@@ -1,48 +1,53 @@
 <?php
 
-class session{
+class session {
 
-	public function __construct(){
-		if(!isset($_SESSION)){
+	public function __construct() {
+		if(!isset($_SESSION)) {
 			session_start();
 		}
 	}
 
-	public function flash($message = null, $type = 'success'){
-		if(isset($message)){
-			$this->data('flash', array(
+	public function flash($message = null, $type = 'success') {
+		if(isset($message)) {
+			$_SESSION['flashes'][] = array(
 				'message' => $message,
 				'type' => $type
-			));
+			);
 		} else {
-			if(isset($_SESSION['flash']['message'])){
-				$html = '<div class="alert-message '.$_SESSION['flash']['type'].' fade in" data-alert="alert"><a class="close" href="#">×</a><p>'.$_SESSION['flash']['message'].'</p></div>';
-				$_SESSION['flash'] = array();
+			if(isset($_SESSION['flashes'])) {
+				$html = '';
+				foreach ($_SESSION['flashes'] as $flash) {
+					$html .= '<div class="alert-message ' . $flash['type'] . ' fade in" data-alert="alert"><a class="close" href="#">×</a><p>' . $flash['message'] . '</p></div>';
+				}
+				unset($_SESSION['flashes']);
 				return $html;
 			}
 		}
 	}
 
-	public function data($key = null, $value = null){
-		if(!isset($key) && !isset($value)){
+	public function data($key = null, $value = null) {
+		if(!isset($key) && !isset($value)) {
 			return $_SESSION;
 		} else {
-			if(isset($value)){
+			if(isset($value)) {
 				$_SESSION[$key] = $value;
 				return true;
-			} else {
+			} elseif(isset($_SESSION[$key])) {
 				return $_SESSION[$key];
+			} else {
+				return NULL;
 			}
 		}
 	}
 
-	public function isLogged(){
+	public function isLogged() {
 		return isset($_SESSION['user']);
 	}
 
-	public function del($key = null){
-		if(isset($key)){
-			if(isset($_SESSION[$key])){
+	public function del($key = null) {
+		if(isset($key)) {
+			if(isset($_SESSION[$key])) {
 				unset($_SESSION[$key]);
 				return true;
 			} else {
@@ -53,6 +58,7 @@ class session{
 			return true;
 		}
 	}
+
 }
 
 ?>

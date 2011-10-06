@@ -1,6 +1,6 @@
 <?php
 
-class posts extends Controller {
+class posts extends basic {
 
 	public $models = array('post', 'category', 'user');
 	public $helpers = array('session', 'html');
@@ -24,9 +24,10 @@ class posts extends Controller {
 
 	//Supprime un article
 	public function delete($id) {
+		$this->needLogin();
 		$this->post->delete($id);
 		$this->session->flash('L\'article a bien été suprimmé');
-		$this->index();
+		router::redirect();
 	}
 
 	public function edit($id = null) {

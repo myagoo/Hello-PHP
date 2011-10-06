@@ -14,7 +14,7 @@ if (!empty($posts)) {
 	echo '<h3>';
 	echo 'Aucun article';
 	echo '<small>';
-	echo $this->html->anchor('posts/edit', 'Créer un article');
+	echo ' '.$this->html->anchor('posts/edit', 'Créer un article');
 	echo '</small>';
 }
 ?>

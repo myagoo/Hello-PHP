@@ -17,8 +17,6 @@ class config {
 	static $default_controller = 'posts';
 	//L'action appelée par défaut si PATH_INFO n'est pas défini
 	static $default_action = 'index';
-	$test;
-
 }
 ?>
 
