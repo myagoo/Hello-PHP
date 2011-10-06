@@ -1,0 +1,18 @@
+/* 
+    Document   : style
+    Created on : 6 oct. 2011, 21:43:14
+    Author     : benjamin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+/* Override the size of markItUp textareas */
+textarea.markItUp{
+    width: 90%;
+}
+
