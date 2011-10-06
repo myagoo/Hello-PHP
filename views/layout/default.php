@@ -1,6 +1,6 @@
 <?php require(WEBROOT.DS.'head.php'); ?>
 <?php if(isset($this->session)){
-	$this->session->flash();
+	echo $this->session->flash();
 } ?>
 <div class="row">
 	<div class="span12 columns">
