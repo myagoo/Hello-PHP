@@ -1,5 +1,5 @@
 <?php
-class categories extends basic{
+class categories extends controller{
 
 	public $models;
 

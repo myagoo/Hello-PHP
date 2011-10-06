@@ -16,6 +16,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/scripts/markitup/sets/default/style.css"/>
 		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/styles/bootstrap.css"/>
 		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/scripts/css/flick/jquery-ui-1.8.16.custom.css"/>
+		<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/styles/style.css"/>
 		<title><?php echo isset($title_for_layout) ? $title_for_layout : "Blog title" ?></title>
 	</head>
 	<body>

@@ -1,6 +1,6 @@
 <?php
 
-class users extends basic {
+class users extends controller {
 
 	public $models = array('user', 'group');
 	public $helpers = array('session');

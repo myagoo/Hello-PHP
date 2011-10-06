@@ -1,48 +1,19 @@
-<form method="POST" class="form-stacked">
-	<fieldset>
-		<legend>Edit this post</legend>
-		<input type="hidden" name="post[id]" value="<?php echo empty($post['id']) ? '' : $post['id']; ?>">
-		<div class="clearfix">
-			<label></label>
-			<div class="input">
+<?php
 
-			</div>
-		</div>
-		<div class="clearfix">
-			<label>Title</label>
-			<div class="input">
-				<input type="text" name="post[title]" value="<?php echo $post['title']; ?>" placeholder="Titre">
-			</div>
-		</div>
-		<div class="clearfix">
-			<label>Body</label>
-			<div class="input">
-				<textarea name="post[body]" placeholder="Corps de l'article" class="markItUp"><?php echo $post['body']; ?></textarea>
-			</div>
-		</div>
-		<div class="clearfix">
-			<label>Category</label>
-			<div class="input">
-				<select name="post[category_id]">
-					<?php foreach($categories as $category){ ?>
-						<option value="<?php echo $category['id']; ?>" <?php echo $category['id'] == $post['category_id'] ? 'selected' : '' ?>><?php echo $category[$this->category->displayField]; ?></option>
-					<?php } ?>
-				</select>
-			</div>
-		</div>
-		<div class="clearfix">
-			<label>User</label>
-			<div class="input">
-				<select name="post[user_id]">
-					<?php foreach($users as $user){ ?>
-						<option value="<?php echo $user['id']; ?>" <?php echo $user['id'] == $post['user_id'] ? 'selected' : '' ?>><?php echo $user[$this->user->displayField]; ?></option>
-					<?php } ?>
-				</select>
-			</div>
-		</div>
-		<div class="actions">
-			<input type="submit" value="Save" name="submited" class="btn primary">
-			<button class="btn" type="reset">Cancel</button>
-		</div>
-	</fieldset>
-</form>
+# Ouverture du formulaire
+echo $this->form->open(array('class' => 'form-stacked', 'legend' => 'Edit this post'));
+# ID du post
+echo $this->form->input('post[id]', isset($post['id']) ? $post['id'] : '', array('type' => 'hidden'));
+# Titre du post
+echo $this->form->input('post[title]', isset($post['title']) ? $post['title'] : '', array('placeholder' => 'Titre', 'label' => 'Title'));
+# Corps du post
+echo $this->form->input('post[body]', isset($post['body']) ? $post['body'] : '', array('type' => 'textarea', 'class' => 'markItUp', 'placeholder' => 'Corps de l\'article', 'label' => 'Body'));
+# Categorie du post
+echo $this->form->select('post[category_id]', isset($post['category_id']) ? $post['category_id'] : '', $categories, array('label' => 'Category'));
+# Auteur du post
+echo $this->form->select('post[user_id]', isset($post['user_id']) ? $post['user_id'] : '', $users, array('label' => 'User'));
+# Bouton de soumission et d'annulation
+echo $this->form->input('submited', 'Save', array('type' => 'submit', 'reset' => 'Cancel'));
+# fermeture du formulaire
+echo $this->form->close();
+?>
