@@ -1,54 +1,49 @@
 <?php
-class categories extends controller{
 
-	public $models;
+class categories extends controller {
 
-	public function __construct(){
-		$this->models = array('category');
-		parent::__construct();
-	}
+	public $models = array('category');
 
-	//Liste les 5 derniers articles
-	public function index(){
-
-		if($data['categories'] = $this->category->find()){
-			$this->set($data);
-			$this->render('index');
-		}else{
-			$this->render('nothing');
-		}
+	public function index() {
+		$data['categories'] = $this->category->find();
+		$this->set($data);
 	}
 
 	//Récupère un article
-	public function view($id){
+	public function view($id) {
 		$data['category'] = $this->category->find(array(
-			'conditions' => 'categories.id = '.$id
-		));
+			'conditions' => 'categories.id = ' . $id
+				));
 		$data['category'] = $data['category'][0];
 		$this->set($data);
-		$this->render('view');
 	}
 
 	//Supprime un article
-	public function delete($id){
+	public function delete($id) {
+		$this->needLogin();
 		$this->category->delete($id);
-		$this->index();
+		$this->session->flash('La catégorie a bien été suprimmé');
+		router::redirect();
 	}
 
-	public function edit($id=null){
-		if(isset($_POST['category'])){
-			$id = $this->category->save($_POST['category']);
+	public function edit($id=null) {
+		$this->needLogin();
+		$category = $this->request->data['category'];
+		if(!empty($category)) {
+			$id = $this->category->save($category);
 		}
-		if(!empty($id)){
+		if(!empty($id)) {
 			$data['category'] = $this->category->find(array(
-				'conditions' => 'categories.id = '.$id
-			));
+				'conditions' => 'categories.id = ' . $id
+					));
+			# Puisque find renvoie des lignes de résultats, on assigne la premiere
 			$data['category'] = $data['category'][0];
-		}else{
-			$data['category']['name']='';
+		} else {
+			$data['category']['name'] = '';
 		}
 		$this->set($data);
-		$this->render('edit');
 	}
+
 }
+
 ?>

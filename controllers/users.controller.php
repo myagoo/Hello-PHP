@@ -28,11 +28,13 @@ class users extends controller {
 
 	public function logout() {
 		$this->session->del('user');
+		$this->session->flash('Vous êtes maintenant déconnecté.', 'error');
 		router::redirect();
 	}
 
 	public function signup() {
-		if(!empty($this->request->data['user'])) {
+		$user = $this->request->data['user'];
+		if(!empty($user)) {
 			$data['user'] = $this->request->data['user'];
 			if($data['user']['password'] == $data['user']['confirm']) {
 				if(!$this->user->find(array(

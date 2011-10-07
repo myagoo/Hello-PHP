@@ -35,8 +35,6 @@ class session {
 				return true;
 			} elseif(isset($_SESSION[$key])) {
 				return $_SESSION[$key];
-			} else {
-				return NULL;
 			}
 		}
 	}
