@@ -34,6 +34,7 @@ class controller extends coreController {
 		$this->loadHelper('html');
 		$data['twitter']['user'] = $this->twitter->find(array('request' => 'user'));
 		$data['twitter']['tweets'] = $this->twitter->find(array('count' => 5));
+		# TODO : Vérifier que les tweets ont bien été reçus
 		foreach ($data['twitter']['tweets'] as &$tweet) {
 			$tweet['text'] = preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', '<a href="$1">$1</a>', $tweet['text']);
 			$tweet['text'] = preg_replace('/\s+#(\w+)/', ' <a href="http://search.twitter.com/search?q=%23$1">#$1</a>', $tweet['text']);

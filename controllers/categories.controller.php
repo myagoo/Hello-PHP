@@ -28,9 +28,14 @@ class categories extends controller {
 
 	public function edit($id=null) {
 		$this->needLogin();
-		$category = $this->request->data['category'];
-		if(!empty($category)) {
-			$id = $this->category->save($category);
+		if(!empty($_POST['category'])){
+			$id = $this->category->save($_POST['category']);
+			if($id !== false){
+				$this->session->flash('La catégorie a été correctement créée.');
+				router::redirect(BASE_URL.'/categories');
+			} else{
+				$this->session->flash('Une erreur est survenue lors de la création de la catégorie.', 'error');
+			}
 		}
 		if(!empty($id)) {
 			$data['category'] = $this->category->find(array(
