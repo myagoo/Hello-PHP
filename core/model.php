@@ -45,48 +45,63 @@ class model {
 		}
 	}
 
-	public function save($data, $html=false) {
-		//Si l'id est rempli, il s'agit d'un UPDATE
-		if (!empty($data[$this->key])) {
-			$query = 'UPDATE ' . $this->table . ' SET ';
-			foreach ($data as $key => $value) {
-				if ($key != $this->key) {
-					$query.= $key . ' = "' . mysql_real_escape_string($value) . '", ';
+	public function save($data) {
+		//Si l'id est rempli, il s'agit d'un UPDATE, sinon INSERT
+		if ( (!empty($data[$this->key]) && count($data) > 1) || (empty($data[$this->key]) && count($data) > 0) ) {
+			if ( !empty($data[$this->key]) ) {
+				$type = 'UPDATE';
+			}
+			else {
+				$type = 'INSERT';
+			}
+			$query = $type;
+			//Construction de la requête
+			$query .= ' ' . $this->db . '.' . $this->table . ' SET ';
+			foreach ( $data as $key => $value ) {
+				if ( $key != $this->key && isset($this->fields[$key]) ) {
+					$query.= $key . ' = ?, ';
+					$values[] = $value;
 				}
 			}
 			$query = substr($query, 0, -2);
-			if ($this->fields['updated']) {
-				$query .= ', updated = "' . date('Y-m-d H:i:s') . '"';
+
+			//Mise à jour des champs updated et created
+			if ( !empty($data[$this->key]) ) {
+				if ( isset($this->fields['updated']) ) {
+					$query .= ', updated = ?';
+					$values[] = date('Y-m-d H:i:s');
+				}
+				$query.=' WHERE ' . $this->key . ' = ?';
+				$values[] = $data[$this->key];
 			}
-			$query.=' WHERE ' . $this->key . ' = ' . $data[$this->key];
-			//Sinon c'est un insert
-		} else {
-			unset($data[$this->key]);
-			$query = 'INSERT INTO ' . $this->table . ' (';
-			foreach ($data as $key => $value) {
-				$query.= $key . ', ';
+			else {
+				if ( isset($this->fields['created']) ) {
+					$query .= ', created = ?';
+					$values[] = date('Y-m-d H:i:s');
+				}
 			}
-			$query = substr($query, 0, -2);
-			if ($this->fields['updated']) {
-				$query .= ', created';
+
+			//Execution de la requete
+			if ( $this->connection->prepare($query)->execute($values) ) {
+				if ( empty($data[$this->key]) ) {
+					$this->id = $this->connection->lastInsertId();
+				}
+				else {
+					$this->id = $data[$this->key];
+				}
+				return array(
+					'type' => $type,
+					'id' => $this->id
+				);
 			}
-			$query.= ') VALUE (';
-			foreach ($data as $value) {
-				$query.= '"' . mysql_real_escape_string($value) . '", ';
+			else {
+
+				return false;
 			}
-			$query = substr($query, 0, -2);
-			if ($this->fields['created']) {
-				$query .= ', "' . date('Y-m-d H:i:s') . '"';
-			}
-			$query.=')';
 		}
-		mysql_query($query) or die(mysql_error());
-		if (empty($data[$this->key])) {
-			$this->id = mysql_insert_id();
-		} else {
-			$this->id = $data[$this->key];
+		else {
+			return false;
 		}
-		return $this->id;
 	}
 
 	public function find($options = array()) {
@@ -149,15 +164,21 @@ class model {
 	}
 
 	public function delete($id=null) {
-		if (empty($id)) {
-			$id = $this->current;
+		if ( empty($id) ) {
+			//$id = $this->current;
+			return false;
 		}
-		$query = 'DELETE FROM ' . $this->table . ' WHERE ' . $this->key . ' = "' . $id . '"';
-		mysql_query($query) or die(mysql_error());
+		$query = 'DELETE FROM ' . $this->db . '.' . $this->table . ' WHERE ' . $this->key . ' = ?';
+		$values[] = $id;
+		if ( $this->connection->prepare($query)->execute($values) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	static function load($name) {
-		require_once(ROOT . DS . 'models' . DS . $name . '.model.php');
 		return new $name();
 	}
 
@@ -180,4 +201,3 @@ class model {
 
 }
 ?>
-
